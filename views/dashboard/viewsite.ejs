@@ -1,0 +1,95 @@
+<% include ./common/head %>
+<% include ./common/sidebar %>
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./common/navbar %>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Site</h1>
+                <p class="mb-4">View all the details </p>
+      
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Site List</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                              <th>No.</th>
+                              <th>Company</th>
+                              <th>Name</th>
+                              <th>Phone</th>
+                              <th>City</th>
+                              <th>State</th>
+                              <th>Street</th>
+                              <th>Zip</th>
+                              <th>Address</th>
+                              <th>Status</th>
+                              <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                              <th>No.</th>
+                              <th>Company</th>
+                              <th>Name</th>
+                              <th>Phone</th>
+                              <th>City</th>
+                              <th>State</th>
+                              <th>Street</th>
+                              <th>Zip</th>
+                              <th>Address</th>
+                              <th>Status</th>
+                              <th>Action</th>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                          <% 
+                          i = 1;
+                          sitedata.forEach(function(s) {  %>
+                          <tr>
+                            <td><%=i%></td>
+                            <td><%=s.company_name%></td>
+                            <td><%=s.name%></td>
+                            <td><%=s.phone%></td>
+                            <td><%=s.city%></td>
+                            <td><%=s.state%></td>
+                            <td><%=s.street%></td>
+                            <td><%=s.zip%></td>
+                            <td><%=s.address%></td> 
+                            <td><%=s.status == 1 ? "Start" : "Stop"%></td>
+                            <td>
+                                <a href="/editsite/<%=s.id%>" class=""><i style="color: green;font-size: 18px;" class="fas fa-fw fa-edit"></i></a> 
+                            ||  <a href="/deletesite/<%=s.id%>" onclick="return confirm('Are you sure you want to delete?')" class=""><i style="color: red;font-size: 18px;" class="fas fa-fw fa-trash"></i></a></td>
+                          </tr>
+                          <% i++; }); %>                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+      
+              </div>
+              <!-- /.container-fluid -->   
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+     <% include ./common/footer %>

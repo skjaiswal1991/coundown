@@ -1,0 +1,115 @@
+<!-- Good alternative is to include minified file jQuery.countdownTimer.min.js -->
+<link rel="stylesheet" type="text/css" href="/css/jQuery.countdownTimer.css" />
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jQuery.countdownTimer.js" ></script>
+
+<div class="container">
+    <% if (msg){%>
+    <h1><%=msg%></h1>
+    <% } %>
+    <div class="row">
+        <% for(i=0; i < returndata.length; i++ ) {%>
+            <div class="timersection">
+                <h1>Section <%=returndata[i].name%></h1>
+                <div class="timer" id="timer_<%=returndata[i].timer_code%>"></div>
+            </div>
+            <script>
+                //hello("data");
+                $(document).ready(function(){
+                    countdown('<%=returndata[i].minuts%>','<%=returndata[i].second%>',"timer_<%=returndata[i].timer_code%>",'<%=returndata[i].status%>');
+            });
+            </script>
+        <% } %>
+        
+    </div>
+</div>
+
+<script src = "/socket.io/socket.io.js"></script>
+   
+   <script>
+       var timer_instances = {};
+       getdata = {};
+        var socket = io();
+        socket.on('mess', function(data){
+            console.log(data);
+        })
+
+        socket.on('newclientconnect',function(data){
+            console.log("i am here in new socket");
+            getdata = data;
+            console.log(getdata);
+            clearInterval(timer_instances["timer_"+getdata.timerid]);
+            var minuts = getdata.minuts;
+            var second = getdata.second;
+            var timer_id = getdata.timerid;
+            var event = getdata.status;
+            if(event == 0){
+                minuts = 0;
+                second = 0;
+            }
+            countdown(minuts,second,"timer_"+getdata.timerid,event);
+                      
+        });
+   </script>
+
+<script>
+
+    var timeoutHandle;
+
+function countdown(minutes, seconds, element,event) {
+    // Fetch the display element
+    var el = document.getElementById(element);
+    console.log("event"+event);
+    
+
+    timer_instances[element] = setInterval(function() {
+        if(seconds == 0 || parseInt(event) == 0) {
+            if(minutes == 0 || parseInt(event) == 0) {
+                (el.innerHTML = "<span class='stop'>00:00</span>");     
+
+                clearInterval(timer_instances[element]);
+                return;
+            } else {
+                minutes--;
+                seconds = 60;
+            }
+        }
+
+        if(minutes > 0) {
+            var minute_text = (minutes < 10 ? '0'+minutes : minutes)  + (minutes > 1 ? ':' : ':');
+        } else {
+            var minute_text = '';
+        }
+
+        var second_text = seconds > 1 ? '' : '';
+        el.innerHTML = minute_text + '' + (seconds < 10 ? '0'+seconds : seconds ) + ' ' + second_text + '';
+        seconds--;
+    }, 1000);
+}
+
+//countdown(12,23);
+</script>
+
+<style>
+.timersection{
+    width: auto;
+    height: 107px;
+    padding: 50px;
+    border: 1px solid gray;
+    float: left;
+    margin-left: 20px;
+}
+
+div.timer {
+    border: 1px solid gray;
+    font-size: 28px;
+    inline-size: unset;
+    position: unset;
+    text-align: center;
+    color: green;
+}
+.stop{
+    color: red;
+}
+</style>
+

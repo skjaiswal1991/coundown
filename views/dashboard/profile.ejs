@@ -1,0 +1,78 @@
+<% include ./common/head %>
+<% include ./common/sidebar %>
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./common/navbar %>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Update Profile</h1>
+                <p class="mb-4">Fill the Profile details </p>
+              
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+                  </div>
+                  <form class="user" method="POST" enctype="multipart/form-data">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                                <input type="text" name="first_name" value="<%=udata.first_name%>" class="form-control form-control-user"  placeholder="First Name">
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <input type="text" name="last_name" value="<%=udata.last_name%>" class="form-control form-control-user"  placeholder="Last Name">
+                        </div>
+                      </div>
+                    
+                    
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" name="email" value="<%=udata.email%>" class="form-control form-control-user" placeholder="Email">
+                        </div>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <select name="role" class="form-control">
+                                <option>Please Select role</option>
+                                <option value="1" <%= udata.role ==1 ? 'Selected': ''%>>Admin</option>
+                            </select>
+                        </div>
+                      
+                    </div>
+                    
+                    <div class="form-group row">
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input type="file" name="image" class="form-control" />
+                            </div>                             <div class="col-sm-6 mb-3 mb-sm-0">
+                                <img class="uploadimage" src='img/<%=udata.image_url.length > 0 ? udata.image_url: "default.png"%>'>
+                            </div>
+                          </div>
+                    
+                    <div class="form-group row">
+                      <div class="col-sm-12 mb-3 mb-sm-0">
+                          <input type="submit" name="submit" value="Update Profile" class="btn btn-primary btn-user btn-block" >
+                      </div>
+                    </div>
+                    
+                  </form>
+                </div>
+      
+              </div>
+              <!-- /.container-fluid -->   
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+     <% include ./common/footer %>

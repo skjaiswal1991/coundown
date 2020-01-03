@@ -1,0 +1,58 @@
+<% include ./common/head %>
+<% include ./common/sidebar %>
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <% include ./common/navbar %>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">API Details</h1>
+                
+                
+               
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4" style="padding: 23px;">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"></h6>
+                  </div>
+                   <h1>Api URL : <%=config%></h1>
+                  <h4>Please Follow the Parameter In API</h4>
+                  <code>
+                        {"apikey":"API_KEY","id":9,"timer_code":"TIMER_KEY","set_time":"50:11","status":1}
+                  </code>
+                  <p>
+                          set_time: set_time in formate of  MM:SS </br>
+                          Status:   status 0,1 ; 0 = stop,1 = start
+                  </p>
+                  
+
+                  <p><b></b>Change the Api:</b>
+                    In root Folder config.js file you change the API URL 
+                </p>
+                </div>
+      
+              </div>
+              <!-- /.container-fluid -->   
+              <div>
+                    
+                </div>
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+      <script>
+        
+      </script>
+
+     <% include ./common/footer %>
