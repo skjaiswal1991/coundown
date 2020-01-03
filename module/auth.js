@@ -43,6 +43,9 @@ auth.middleware = function middleware (req, res, next) {
         res.redirect('/');
     }
 }
+
+
+
 module.exports = auth;
 
 

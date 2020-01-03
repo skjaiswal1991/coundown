@@ -1,24 +1,33 @@
-var db = require('./../dbconnection');
+var db = require('../dbconnection');
+var multer = require('multer');
+var path = require('path');
+const md5 = require('md5');
+var Promise = require('promise');
+var config = require('./../config');
 
 company = {};
 
 company._getadd =  function(req,res){
     var apikey = crypto.randomBytes(64).toString('hex');
-    res.render('dashboard/addcompany',{companydata: "", apikey: apikey});
+    res.render('dashboard/addsong',{companydata: "", apikey: apikey});
 }
 
 company._postadd = function( req, res ){
+
+    console.log(req.files);
     console.log(req.body);
-    pdata = req.body;
-    console.log(pdata);
+    fdata = req.body;
+    files = req.files;
+    console.log(files.cover[0].filename);
     //res.render('dashboard/addcompany');
-    let sql = "Insert into company (cname,website,email,phone,country,state,street,city,apikey,address,zip,is_active)VALUES('"+pdata.cname+"','"+pdata.website+"','"+pdata.email+"','"+pdata.phone+"','"+pdata.country+"','"+pdata.state+"','"+pdata.street+"','"+pdata.city+"','"+pdata.apikey+"','"+pdata.address+"','"+pdata.zip+"','"+pdata.status+"')";
+    //if(req.files)
+      let sql = "Insert into songs (name,singer,cover,songs)VALUES('"+fdata.name+"','"+fdata.singer+"','"+files.cover[0].filename+"','"+files.songs[0].filename+"')";
     console.log(sql);
     db.query(sql, function(err, result, fields){
         if(!err){
-            res.redirect('/viewcompanys');
+            res.redirect('/viewsongs');
         }
-        console.log(result);
+        console.log(err);
     })
 
 }
@@ -54,12 +63,21 @@ company._delete = function( req,res){
 }
 
 company._view = function(req,res){
-    db.query("SELECT * from company", function(err, results, fields){
+    db.query("SELECT * from songs", function(err, results, fields){
         console.log(results);
         if(!err){
-            res.render('dashboard/viewcompanys',{companydata: results});
+            res.render('dashboard/viewsongs',{companydata: results});
         }
     });
 }
+
+company._getallsongs = function(req,res){
+    db.query("SELECT * from songs", function(err, results, fields){
+        //console.log(results);
+        if(!err){
+            res.json(results);
+        }
+    });
+} 
 
 module.exports = company;

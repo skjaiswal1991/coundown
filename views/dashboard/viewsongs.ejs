@@ -16,13 +16,13 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Company</h1>
+                <h1 class="h3 mb-2 text-gray-800">Songs</h1>
                 <p class="mb-4">View all ther details </p>
       
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Company List</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Songs List</h6>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -30,17 +30,9 @@
                         <thead>
                           <tr>
                             <th>Sr.</th>
-                            <th>ID</th>
-                            <th>Company Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Street</th>
-                            <th>Zip</th>
-                            <th>Address</th>
-                            <th>website</th>
-                            <th>API KEY</th>
+                            <th>Cover</th>
+                            <th>Song Name</th>
+                            <th>Singer Name</th>                            
                             <th>status</th>
                             <th>Action</th>
                           </tr>
@@ -48,17 +40,9 @@
                         <tfoot>
                           <tr>
                             <th>Sr.</th>
-                            <th>ID</th>
-                            <th>Company Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>City</th>
-                            <th>State</th>
-                            <th>Street</th>
-                            <th>Zip</th>
-                            <th>Address</th>
-                            <th>website</th>
-                            <th>API KEY</th>
+                            <th>Cover</th>
+                            <th>Song Name</th>
+                            <th>Singer Name</th>                            
                             <th>status</th>
                             <th>Action</th>
                           </tr>
@@ -68,19 +52,11 @@
                             i = 1;
                             companydata.forEach(function(o) {  %>
                           <tr>
-                            <td><%=i%></td>
-                            <td><%=o.id%></td> 
-                            <td><%=o.cname%></td> 
-                            <td><%=o.email%></td>
-                            <td><%=o.phone%></td>
-                            <td><%=o.city%></td>
-                            <td><%=o.state%></td>
-                            <td><%=o.street%></td>
-                            <td><%=o.zip%></td>
-                            <td><%=o.address%></td>                            
-                            <td><%=o.website%></td>
-                            <td><textarea ><%=o.apikey%></textarea></td>
-                            <td><%=o.is_active == 1 ? "Active" : "Deactive"%></td>
+                            <td><%=i%></td>                            
+                            <td><img src="img/<%=o.cover%>" height="100" width="100"/></td> 
+                            <td><%=o.name%></td>
+                            <td><%=o.singer%></td>
+                            <td><%=o.status%></td>                            
                             <td>
                                 <a href="/editcompany/<%=o.id%>" class=""><i style="color: green;font-size: 18px;" class="fas fa-fw fa-edit"></i></a> 
                             ||  <a href="/deletecompany/<%=o.id%>" onclick="return confirm('Are you sure you want to delete?')" class=""><i style="color: rgb(233, 116, 116);font-size: 18px;" class="fas fa-fw fa-trash"></i></a></td>
