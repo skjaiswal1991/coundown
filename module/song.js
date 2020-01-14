@@ -5,23 +5,28 @@ const md5 = require('md5');
 var Promise = require('promise');
 var config = require('./../config');
 
-company = {};
+song = {};
 
-company._getadd =  function(req,res){
+song._getadd =  function(req,res){
     var apikey = crypto.randomBytes(64).toString('hex');
-    res.render('dashboard/addsong',{companydata: "", apikey: apikey});
+    let sql = "select * from movies";
+    db.query(sql,function(error,result,fields){
+        var  data = result;
+        res.render('dashboard/addsong',{songdata: "", apikey: apikey,movies:data});
+    })      
+           
 }
 
-company._postadd = function( req, res ){
+song._postadd = function( req, res ){
 
     console.log(req.files);
     console.log(req.body);
     fdata = req.body;
     files = req.files;
     console.log(files.cover[0].filename);
-    //res.render('dashboard/addcompany');
+    //res.render('dashboard/addsong');
     //if(req.files)
-      let sql = "Insert into songs (name,singer,cover,songs)VALUES('"+fdata.name+"','"+fdata.singer+"','"+files.cover[0].filename+"','"+files.songs[0].filename+"')";
+      let sql = "Insert into songs (name,singer,cover,songs,movie_id,status)VALUES('"+fdata.name+"','"+fdata.singer+"','"+files.cover[0].filename+"','"+files.songs[0].filename+"','"+fdata.movie_id+"','"+fdata.status+"')";
     console.log(sql);
     db.query(sql, function(err, result, fields){
         if(!err){
@@ -32,46 +37,65 @@ company._postadd = function( req, res ){
 
 }
 
-company._getedit = function( req, res){
+song._getedit = function( req, res){
     console.log(req.params.id);
-    let sql = "SELECT * from company where id ="+req.params.id
-    db.query(sql, function(err, results, fields){
-        res.render('dashboard/addcompany',{companydata: results[0]});
+    let sql = "select * from movies";
+    db.query(sql,function(error,result,fields){
+        var  data = result;
+        if(!error){
+            let sql = "SELECT * from songs where id ="+req.params.id
+            db.query(sql, function(err, results, fields){
+                console.log(data);
+                res.render('dashboard/addsong',{songdata: results[0],movies:data});
+            })
+        }else{
+            console.log("Error");
+        }
+        
     })
+        
 
 }
 
-company._update = function( req, res){
+song._update = function( req, res){
     pdata = req.body;
-    let sql = "update company Set cname = '"+pdata.cname+"',website = '"+pdata.website+"',email ='"+pdata.email+"',phone ='"+pdata.phone+"', country ='"+pdata.country+"', state='"+pdata.state+"',street='"+pdata.street+"',address='"+pdata.address+"',city='"+pdata.city+"',apikey='"+pdata.apikey+"',is_active='"+pdata.status+"' where id ="+req.params.id
+    files = req.files;
+    console.log(files.cover);
+    
+    if( files.cover !== undefined){
+        var sql = "update songs Set name = '"+pdata.name+"',singer = '"+pdata.website+"',cover = '"+files.cover[0].filename+"',songs='"+files.songs[0].filename+"',movie_id='"+pdata.movie_id+"',status='"+pdata.status+"' where id ="+req.params.id
+    }else{
+        var sql = "update songs Set name = '"+pdata.name+"',singer = '"+pdata.website+"',movie_id='"+pdata.movie_id+"',status='"+pdata.status+"' where id ="+req.params.id
+    }
+    
     console.log(sql);
     db.query(sql, function(err, results, fields){
-        res.redirect('/viewcompanys');
+        res.redirect('/viewsongs');
     })
 
 }
 
-company._delete = function( req,res){
+song._delete = function( req,res){
 
     id = req.params.id;
-    db.query('delete from company where id = '+id, function( err, results, fields){
+    db.query('delete from songs where id = '+id, function( err, results, fields){
         if(!err){
-            res.redirect('/viewcompanys');
+            res.redirect('/viewsongs');
         }
     });
 
 }
 
-company._view = function(req,res){
+song._view = function(req,res){
     db.query("SELECT * from songs", function(err, results, fields){
         console.log(results);
         if(!err){
-            res.render('dashboard/viewsongs',{companydata: results});
+            res.render('dashboard/viewsongs',{songdata: results});
         }
     });
 }
 
-company._getallsongs = function(req,res){
+song._getallsongs = function(req,res){
     db.query("SELECT * from songs", function(err, results, fields){
         //console.log(results);
         if(!err){
@@ -80,4 +104,21 @@ company._getallsongs = function(req,res){
     });
 } 
 
-module.exports = company;
+song._getallmovies = function(req,res){
+    db.query("SELECT * from movies", function(err, results, fields){
+        if(!err){
+            res.json(results);
+        }
+    });
+}
+
+song._getmoviesong = function(req,res){
+    id = req.params.id;
+    db.query('Select * from songs where movie_id = '+id, function(err, results, fields){
+        if(!err){
+            res.json(results);
+        }
+    });
+}
+
+module.exports = song;

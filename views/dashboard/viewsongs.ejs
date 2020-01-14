@@ -50,7 +50,7 @@
                         <tbody>
                           <% 
                             i = 1;
-                            companydata.forEach(function(o) {  %>
+                            songdata.forEach(function(o) {  %>
                           <tr>
                             <td><%=i%></td>                            
                             <td><img src="img/<%=o.cover%>" height="100" width="100"/></td> 
@@ -58,8 +58,8 @@
                             <td><%=o.singer%></td>
                             <td><%=o.status%></td>                            
                             <td>
-                                <a href="/editcompany/<%=o.id%>" class=""><i style="color: green;font-size: 18px;" class="fas fa-fw fa-edit"></i></a> 
-                            ||  <a href="/deletecompany/<%=o.id%>" onclick="return confirm('Are you sure you want to delete?')" class=""><i style="color: rgb(233, 116, 116);font-size: 18px;" class="fas fa-fw fa-trash"></i></a></td>
+                                <a href="/editsong/<%=o.id%>" class=""><i style="color: green;font-size: 18px;" class="fas fa-fw fa-edit"></i></a> 
+                            ||  <a href="/deletesong/<%=o.id%>" onclick="return confirm('Are you sure you want to delete?')" class=""><i style="color: rgb(233, 116, 116);font-size: 18px;" class="fas fa-fw fa-trash"></i></a></td>
                           </tr>
                           <% i++; }); %>                          
                         </tbody>

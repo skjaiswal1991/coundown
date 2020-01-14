@@ -16,7 +16,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800"><%= !companydata.id ? 'Add' : 'Update' %> Song</h1>
+                <h1 class="h3 mb-2 text-gray-800"><%= !songdata.id ? 'Add' : 'Update' %> Song</h1>
                 <p class="mb-4">Fill the Song details </p>
       
                 <!-- DataTales Example -->
@@ -25,26 +25,43 @@
                     <h6 class="m-0 font-weight-bold text-primary"></h6>
                   </div>
                   <form class="user" method="POST" enctype="multipart/form-data">
+                   
                     <div class="form-group row">
                       <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="text" name="name" value="" class="form-control form-control-user" id="exampleFirstName" placeholder="Songs Name">
+                        <input type="text" name="name" value="<%=songdata.name %>" class="form-control" id="exampleFirstName" placeholder="Songs Name">
                       </div>
                       <div class="col-sm-6">
-                        <input type="text" name="singer" value="" class="form-control form-control-user" id="exampleLastName" placeholder="Singer Name">
+                        <input type="text" name="singer" value="<%=songdata.singer %>" class="form-control " id="exampleLastName" placeholder="Singer Name">
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input type="file" name="cover" value="" class="form-control form-control-user" id="exampleFirstName" placeholder="Cover Image">
+                        <input type="file" name="cover" value="<%=songdata.cover %>" class="form-control" id="exampleFirstName" placeholder="Cover Image">
                       </div>
                       <div class="col-sm-6">
-                        <input type="file" name="songs" value="" class="form-control form-control-user" id="exampleLastName" placeholder="Mp3 File">
+                        <input type="file" name="songs" value="<%=songdata.songs %>" class="form-control" id="exampleLastName" placeholder="Mp3 File">
                       </div>
-                    </div>                   
+                    </div> 
+                    <div class="form-group row">
+                      <div class="col-sm-6 mb-3 mb-sm-0">
+                        <select class="form-control" name="movie_id" >
+                          <option value="">Please Select Movie</option>                        
+                          <% movies.forEach(function(m){%>
+                            <option value="<%=m.id%>"><%=m.name%></option>
+                          <% })%>
+                      </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <select name="status" class="form-control">
+                          <option value="1">Active</option>
+                          <option value="0">Deactive</option>
+                        </select>
+                      </div>
+                    </div>                  
                         
                     <div class="form-group row">
                       <div class="col-sm-12 mb-3 mb-sm-0">
-                          <input type="submit" name="submit" value="<%= !companydata.id ? 'Add' : 'Update' %> Song" class="btn btn-primary btn-user btn-block" >
+                          <input type="submit" name="submit" value="<%= !songdata.id ? 'Add' : 'Update' %> Song" class="btn btn-primary btn-user btn-block" >
                       </div>
                     </div>
                     
