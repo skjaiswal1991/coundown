@@ -152,7 +152,7 @@ app.get('/viewmovies',auth.middleware, movie._view);
 app.get('/allsong',song._getallsongs);
 app.get('/allmovies',song._getallmovies);
 app.get('/moviesong/:id',song._getmoviesong);
-
+app.get('/moviedetails/:id',song._getmoviedetails);
 
 
 

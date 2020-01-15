@@ -121,4 +121,13 @@ song._getmoviesong = function(req,res){
     });
 }
 
+song._getmoviedetails = function(req,res){
+    id = req.params.id;
+    db.query('SELECT * from movies where id = '+id, function(err, results, fields){
+        if(!err){
+            res.json(results);
+        }
+    });
+}
+
 module.exports = song;
