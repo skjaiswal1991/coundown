@@ -30,7 +30,7 @@
     "promise": "^8.0.3",
     "readable-stream": "^3.4.0",
     "request": "^2.88.0",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.5.0",
     "through2": "^3.0.1"
   }
 }
